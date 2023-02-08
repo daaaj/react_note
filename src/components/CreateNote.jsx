@@ -11,6 +11,7 @@ const Container = styled.div`
 const Text = styled.input`
     border-radius: 15px;
     border: 1px solid #433986;
+    font-family: 'UhBeeSeulvely';
     &:focus {
         outline: 3px solid #433986;
     }
@@ -26,13 +27,9 @@ const ContentText = styled(Text.withComponent('textarea'))`
     height: 180px;
     resize: none;
     padding: 10px;
-    font-size: 1em;
 `;
 
 function CreateNote({ title, setTitle, content, setContent }) {
-    const doneNote = 'true';
-    // const [title, setTitle] = useState('');
-    // const [content, setContent] = useState('');
     const titleChange = (e) => {
         setTitle(e.target.value);
     };

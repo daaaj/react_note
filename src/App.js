@@ -9,6 +9,13 @@ const GlobalStyle = createGlobalStyle`
     padding:0;
     margin: 0;
     background-color: #f4f4f4;
+    @font-face {
+        font-family: 'UhBeeSeulvely';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSeulvely.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    font-family: 'UhBeeSeulvely';
   }
 `;
 const DivFlexCenter = styled.div`
@@ -19,10 +26,10 @@ const DivFlexCenter = styled.div`
 `;
 /* 재사용하기 */
 const Apparea = styled(DivFlexCenter)`
-    //background-color: #f4f4f4;
     max-width: 1200px;
-    height: 100vh;
-    margin: 0px auto;
+    height: auto;
+
+    margin: 100px auto;
 `;
 const NoteArea = styled.div`
     background-color: #cbc8e3;
@@ -41,17 +48,18 @@ const Header = styled(DivFlexCenter)`
     margin: 20px 10px;
 `;
 const NoteSpan = styled.span`
-    font-size: 1.5em;
+    font-size: 1.8em;
     font-weight: bold;
 `;
 const CreateBtn = styled.button`
     background-color: white;
     width: 80px;
-    height: 30px;
+    height: 35px;
 
-    font-size: 1em;
+    font-size: 0.9em;
     border: none;
     border-radius: 10px;
+    font-family: 'UhBeeSeulvely';
 `;
 function App() {
     const [noteList, setNoteList] = useState([
@@ -77,21 +85,26 @@ function App() {
         if (btnText == 'Create') {
             setBtnText('Done');
             setTitle('');
+            setContent('');
         } else if (btnText == 'Done') {
             if (title != '' && content != '') {
                 setBtnText('Create');
-                setContent('');
+                addNewNote();
+            } else {
+                // 뒤로 돌아가기
+                setBtnText('Create');
             }
         }
     };
-    // if (title != null && content != null) {
-    //     const newNote = {
-    //         id: Date.now(),
-    //         title: title,
-    //         content: content,
-    //     };
-    //     setNoteList([...noteList, newNote]);
-    // }
+    const addNewNote = () => {
+        const newNote = {
+            id: Date.now(),
+            title,
+            content,
+        };
+        setNoteList([...noteList, newNote]);
+    };
+
     return (
         <>
             {/* 맨위에 작성하기 */}
@@ -99,11 +112,11 @@ function App() {
             <Apparea>
                 <NoteArea>
                     <Header>
-                        <NoteSpan>Note</NoteSpan>
+                        <NoteSpan>I'm Note</NoteSpan>
                         <CreateBtn onClick={createBtn}>{btnText}</CreateBtn>
                     </Header>
                     {btnText == 'Done' ? (
-                        <CreateNote title={title} setTitle={setTitle} content={content} setContent={setContent}></CreateNote>
+                        <CreateNote setNoteList={setNoteList} list={noteList} onClick={createBtn} title={title} setTitle={setTitle} content={content} setContent={setContent}></CreateNote>
                     ) : (
                         noteList.map((list) => {
                             return <NoteList key={list.id} list={list}></NoteList>;
