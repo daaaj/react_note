@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import NoteList from './components/NoteList';
-import CreateNote from './components/CreateNote';
+import NoteList from '../components/NoteList';
+import CreateNote from '../components/CreateNote';
 
 // injectGlobal 말고 이걸로~
 const GlobalStyle = createGlobalStyle`
