@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -6,6 +7,7 @@ const Container = styled.div`
     margin-bottom: 10px;
     margin-left: 10px;
     margin-right: 10px;
+    gap: 20px;
 `;
 const NoteItem = styled.div`
     background-color: #f4f4f4;
@@ -25,13 +27,20 @@ const Content = styled.p`
     word-break: break-all;
 `;
 
-function NoteList({ list }) {
+function NoteList() {
+    // 리스트 가져오기
+    const memoReducer = useSelector((state) => state.memoReducer);
+
     return (
         <Container>
-            <NoteItem>
-                <Title>{list.title}</Title>
-                <Content>{list.content}</Content>
-            </NoteItem>
+            {memoReducer.map((memo) => {
+                return (
+                    <NoteItem key={memo.id}>
+                        <Title>{memo.title}</Title>
+                        <Content>{memo.content}</Content>
+                    </NoteItem>
+                );
+            })}
         </Container>
     );
 }
